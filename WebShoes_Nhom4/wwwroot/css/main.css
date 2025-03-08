@@ -1023,7 +1023,7 @@ h1, h2, h3, h4, h5, h6 {
     background: #fff;
     padding: 0px;
     border: 0px;
-    border-radius: 0px; }
+    border-radius: 15px; }
     @media (max-width: 991px) {
       .header_area .navbar .navbar-collapse {
         margin-top: 30px; }
