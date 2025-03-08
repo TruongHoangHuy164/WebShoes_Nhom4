@@ -1,4 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="text-center">
+    <h1 class="display-4">Welcome to Our Shop</h1>
+    <p>Explore our latest products and amazing deals!</p>
+
+    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Shop Now</a>
+</div>
