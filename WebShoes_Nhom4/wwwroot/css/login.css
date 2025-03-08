@@ -14,7 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(90deg, #fceabb, #f8b500);
+    background: linear-gradient(260deg, #22c1c3, #fdbb2d);
 }
 
 .container {
@@ -148,7 +148,7 @@ form {
         left: -250%;
         width: 300%;
         height: 100%;
-        background: #F37335;
+        background: linear-gradient(90deg, #22c1c3, #fdbb2d);
         /* border: 2px solid red; */
         border-radius: 150px;
         z-index: 2;
