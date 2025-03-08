@@ -2052,10 +2052,13 @@ label {
 
 .cart-title {
   padding-bottom: 15px; }
-
+.img-fluid{
+    border-radius: 15px;
+}
 .cart-single-item {
-  border-top: 1px solid #eee;
-  padding: 15px 0; }
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+}
   .cart-single-item .product-item {
     margin-left: 15px; }
     .cart-single-item .product-item img {
@@ -5661,133 +5664,27 @@ label {
 
 /* End Contact Success and error Area css
 ============================================================================================ */
-.footer-area {
-  padding-top: 100px;
-  background-color: #222222; }
-  .footer-area h6 {
-    color: #fff;
-    margin-bottom: 25px;
-    font-size: 18px;
-    font-weight: 600; }
-    @media (max-width: 767px) {
-      .footer-area h6 {
-        margin-bottom: 15px; } }
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #e7e7e7;
+}
 
-.copy-right-text i,
-.copy-right-text a {
-  color: #ffba00; }
+.social-icons {
+    margin-bottom: 10px;
+}
 
-.instafeed {
-  margin: -5px; }
-  .instafeed li {
-    overflow: hidden;
-    width: 25%; }
-    .instafeed li img {
-      margin: 5px; }
+    .social-icons a {
+        margin: 0 10px;
+        text-decoration: none;
+        font-size: 24px;
+        color: #333;
+        transition: color 0.3s;
+    }
 
-.footer-social a {
-  padding-right: 25px;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s; }
-  .footer-social a:hover i {
-    color: #ffba00; }
-.footer-social i {
-  color: #cccccc;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s; }
-
-@media (max-width: 991px) {
-  .single-footer-widget {
-    margin-bottom: 40px; } }
-.single-footer-widget .form-inline {
-  display: inline-block;
-  width: 100%; }
-.single-footer-widget input {
-  border: none;
-  width: 80% !important;
-  font-weight: 300;
-  background: #fff;
-  color: #777;
-  padding-left: 20px;
-  border-radius: 0;
-  font-size: 14px; }
-  .single-footer-widget input:focus {
-    outline: none;
-    box-shadow: none; }
-  .single-footer-widget input.placeholder {
-    color: #ccc; }
-  .single-footer-widget input:-moz-placeholder {
-    color: #ccc; }
-  .single-footer-widget input::-moz-placeholder {
-    color: #ccc; }
-  .single-footer-widget input::-webkit-input-placeholder {
-    color: #ccc; }
-.single-footer-widget .bb-btn {
-  color: #fff;
-  font-weight: 300;
-  border-radius: 0;
-  z-index: 9999;
-  cursor: pointer; }
-.single-footer-widget .info {
-  position: absolute;
-  margin-top: 5%;
-  color: #fff;
-  font-size: 12px; }
-  .single-footer-widget .info.valid {
-    color: green; }
-  .single-footer-widget .info.error {
-    color: red; }
-.single-footer-widget .click-btn {
-  color: #fff;
-  border-radius: 0;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  padding: 6px 12px;
-  border: 0; }
-  .single-footer-widget .click-btn:focus {
-    outline: none;
-    box-shadow: none; }
-.single-footer-widget ::-moz-selection {
-  /* Code for Firefox */
-  background-color: #191919 !important;
-  color: #777777; }
-.single-footer-widget ::selection {
-  background-color: #191919 !important;
-  color: #777777; }
-.single-footer-widget ::-webkit-input-placeholder {
-  /* WebKit, Blink, Edge */
-  color: #777777;
-  font-weight: 300; }
-.single-footer-widget :-moz-placeholder {
-  /* Mozilla Firefox 4 to 18 */
-  color: #777777;
-  opacity: 1;
-  font-weight: 300; }
-.single-footer-widget ::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
-  color: #777777;
-  opacity: 1;
-  font-weight: 300; }
-.single-footer-widget :-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #777777;
-  font-weight: 300; }
-.single-footer-widget ::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #777777;
-  font-weight: 300; }
-
-.footer-text {
-  padding-top: 80px; }
-  @media (max-width: 991px) {
-    .footer-text {
-      padding-top: 40px; } }
-  .footer-text a,
-  .footer-text i {
-    color: #ffba00; }
+        .social-icons a:hover {
+            color: #007bff;
+        }
 
 /*# sourceMappingURL=main.css.map */
