@@ -8,7 +8,5 @@ namespace WebShoes_Nhom4.Controllers
         {
             return View();
         }
-
-
     }
 }
