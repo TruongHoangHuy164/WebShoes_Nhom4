@@ -55,36 +55,10 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown active">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								   aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item active"><a class="nav-link" href="category.html">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								   aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								   aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							<li class="nav-item active"><a class="nav-link" href="">Home</a></li>
+
+							<li class="nav-item"><a asp-action="Index" asp-controller="Shop" class="nav-link">Shop</a></li>
+							<li class="nav-item"><a asp-action="Index" asp-controller="Login" class="nav-link">Login</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
@@ -127,143 +101,75 @@
 		<div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-5">
 				<div class="sidebar-categories">
-					<div class="head">Browse Categories</div>
-					<ul class="main-categories">
+					<div class="head">Categories</div>
+					<ul class="main-nav">
 						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable">
-								<span class="lnr lnr-arrow-right"></span>Fruits and Vegetables<span class="number">(53)</span>
+							<a data-toggle="collapse" href="#genderCategory" aria-expanded="false" aria-controls="genderCategory">
+								<span class="lnr lnr-arrow-right"></span>Giới Tính & Độ Tuổi
 							</a>
-							<ul class="collapse" id="fruitsVegetable" data-toggle="collapse" aria-expanded="false" aria-controls="fruitsVegetable">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
+							<ul class="collapse" id="genderCategory">
+								<li class="main-nav-list child"><a href="#">Giày Nam <span class="number">(20)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Nữ <span class="number">(18)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Trẻ Em <span class="number">(10)</span></a></li>
 							</ul>
 						</li>
 
 						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish">
-								<span class="lnr lnr-arrow-right"></span>Meat and Fish<span class="number">(53)</span>
+							<a data-toggle="collapse" href="#usageCategory" aria-expanded="false" aria-controls="usageCategory">
+								<span class="lnr lnr-arrow-right"></span>Theo Mục Đích Sử Dụng
 							</a>
-							<ul class="collapse" id="meatFish" data-toggle="collapse" aria-expanded="false" aria-controls="meatFish">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
+							<ul class="collapse" id="usageCategory">
+								<li class="main-nav-list child"><a href="#">Giày Chạy Bộ <span class="number">(15)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Bóng Đá <span class="number">(12)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Tennis <span class="number">(08)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Cầu Lông <span class="number">(05)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Leo Núi <span class="number">(07)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Bóng Rổ <span class="number">(06)</span></a></li>
 							</ul>
 						</li>
+
 						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#cooking" aria-expanded="false" aria-controls="cooking">
-								<span class="lnr lnr-arrow-right"></span>Cooking<span class="number">(53)</span>
+							<a data-toggle="collapse" href="#styleCategory" aria-expanded="false" aria-controls="styleCategory">
+								<span class="lnr lnr-arrow-right"></span>Theo Phong Cách
 							</a>
-							<ul class="collapse" id="cooking" data-toggle="collapse" aria-expanded="false" aria-controls="cooking">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
+							<ul class="collapse" id="styleCategory">
+								<li class="main-nav-list child"><a href="#">Giày Sneaker <span class="number">(22)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Cao Cổ <span class="number">(14)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Thấp Cổ <span class="number">(17)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Lười (Slip-on) <span class="number">(11)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Canvas <span class="number">(09)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Thời Trang (Casual) <span class="number">(16)</span></a></li>
 							</ul>
 						</li>
+
 						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#beverages" aria-expanded="false" aria-controls="beverages">
-								<span class="lnr lnr-arrow-right"></span>Beverages<span class="number">(24)</span>
+							<a data-toggle="collapse" href="#brandCategory" aria-expanded="false" aria-controls="brandCategory">
+								<span class="lnr lnr-arrow-right"></span>Theo Thương Hiệu
 							</a>
-							<ul class="collapse" id="beverages" data-toggle="collapse" aria-expanded="false" aria-controls="beverages">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
-							</ul>
-						</li>
-						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#homeClean" aria-expanded="false" aria-controls="homeClean">
-								<span class="lnr lnr-arrow-right"></span>Home and Cleaning<span class="number">(53)</span>
-							</a>
-							<ul class="collapse" id="homeClean" data-toggle="collapse" aria-expanded="false" aria-controls="homeClean">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
-							</ul>
-						</li>
-						<li class="main-nav-list"><a href="#">Pest Control<span class="number">(24)</span></a></li>
-						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#officeProduct" aria-expanded="false" aria-controls="officeProduct">
-								<span class="lnr lnr-arrow-right"></span>Office Products<span class="number">(77)</span>
-							</a>
-							<ul class="collapse" id="officeProduct" data-toggle="collapse" aria-expanded="false" aria-controls="officeProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
-							</ul>
-						</li>
-						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#beauttyProduct" aria-expanded="false" aria-controls="beauttyProduct">
-								<span class="lnr lnr-arrow-right"></span>Beauty Products<span class="number">(65)</span>
-							</a>
-							<ul class="collapse" id="beauttyProduct" data-toggle="collapse" aria-expanded="false" aria-controls="beauttyProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
-							</ul>
-						</li>
-						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#healthProduct" aria-expanded="false" aria-controls="healthProduct">
-								<span class="lnr lnr-arrow-right"></span>Health Products<span class="number">(29)</span>
-							</a>
-							<ul class="collapse" id="healthProduct" data-toggle="collapse" aria-expanded="false" aria-controls="healthProduct">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
-							</ul>
-						</li>
-						<li class="main-nav-list"><a href="#">Pet Care<span class="number">(29)</span></a></li>
-						<li class="main-nav-list">
-							<a data-toggle="collapse" href="#homeAppliance" aria-expanded="false" aria-controls="homeAppliance">
-								<span class="lnr lnr-arrow-right"></span>Home Appliances<span class="number">(15)</span>
-							</a>
-							<ul class="collapse" id="homeAppliance" data-toggle="collapse" aria-expanded="false" aria-controls="homeAppliance">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat<span class="number">(11)</span></a></li>
-							</ul>
-						</li>
-						<li class="main-nav-list">
-							<a class="border-bottom-0" data-toggle="collapse" href="#babyCare" aria-expanded="false"
-							   aria-controls="babyCare"><span class="lnr lnr-arrow-right"></span>Baby Care<span class="number">(48)</span></a>
-							<ul class="collapse" id="babyCare" data-toggle="collapse" aria-expanded="false" aria-controls="babyCare">
-								<li class="main-nav-list child"><a href="#">Frozen Fish<span class="number">(13)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Dried Fish<span class="number">(09)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Fresh Fish<span class="number">(17)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Meat Alternatives<span class="number">(01)</span></a></li>
-								<li class="main-nav-list child"><a href="#" class="border-bottom-0">Meat<span class="number">(11)</span></a></li>
+							<ul class="collapse" id="brandCategory">
+								<li class="main-nav-list child"><a href="#">Giày Nike <span class="number">(25)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Adidas <span class="number">(20)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Puma <span class="number">(10)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Converse <span class="number">(15)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày Vans <span class="number">(12)</span></a></li>
+								<li class="main-nav-list child"><a href="#">Giày New Balance <span class="number">(08)</span></a></li>
 							</ul>
 						</li>
 					</ul>
 				</div>
+
+
 				<div class="sidebar-filter mt-50">
 					<div class="top-filter-head">Product Filters</div>
 					<div class="common-filter">
 						<div class="head">Brands</div>
 						<form action="#">
 							<ul>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="nike" name="brand"><label for="nike">Nike<span>(25)</span></label></li>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="adidas" name="brand"><label for="adidas">Adidas<span>(20)</span></label></li>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="puma" name="brand"><label for="puma">Puma<span>(15)</span></label></li>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="converse" name="brand"><label for="converse">Converse<span>(18)</span></label></li>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="vans" name="brand"><label for="vans">Vans<span>(12)</span></label></li>
 							</ul>
 						</form>
 					</div>
@@ -295,16 +201,22 @@
 							<div id="price-range"></div>
 							<div class="value-wrapper d-flex">
 								<div class="price">Price:</div>
-								<span>$</span>
+								
 								<div id="lower-value"></div>
+								<span>vnđ</span>
 								<div class="to">to</div>
-								<span>$</span>
+								
 								<div id="upper-value"></div>
+								<span>vnđ</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
+
+
+
 			<div class="col-xl-9 col-lg-8 col-md-7">
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
