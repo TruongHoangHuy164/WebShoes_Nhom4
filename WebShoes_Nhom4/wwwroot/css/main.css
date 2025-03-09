@@ -3117,9 +3117,12 @@ label {
     right: 0; }
 
 .filter-bar {
-  padding: 0px 20px 10px 20px;
-  background: #828bb3; }
+    padding: 0px 20px 10px 20px;
+    background: linear-gradient(260deg, #22c1c3, #fdbb2d);
+    border-radius: 20px;
+}
   .filter-bar a, .filter-bar i {
+      border-radius:20px;
     color: #000; }
 
 .main-categories a {
@@ -3143,13 +3146,13 @@ label {
   margin-top: 10px;
   margin-right: 10px; }
   .sorting .nice-select {
-    border-radius: 0px;
+    border-radius: 20px;
     border: 1px solid #eee;
     padding-right: 50px; }
     .sorting .nice-select:after {
       right: 18px; }
     .sorting .nice-select .list {
-      border-radius: 0px; }
+      border-radius: 20px; }
 
 .pagination {
   margin-top: 10px;
@@ -3293,12 +3296,14 @@ label {
         color: #fff; }
 
 .sidebar-categories .head {
-  line-height: 60px;
-  background: #828bb3;
-  padding: 0 30px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #fff; }
+    border-radius:20px;
+    line-height: 60px;
+    background: linear-gradient(260deg, #22c1c3, #fdbb2d);
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+}
 .sidebar-categories .main-categories {
   padding: 0 20px;
   background: #fff;
@@ -3321,22 +3326,31 @@ label {
   padding-left: 32px; }
 
 .sidebar-filter {
-  margin-top: 50px; }
-  .sidebar-filter .top-filter-head {
-    line-height: 60px;
-    background: #828bb3;
-    padding: 0 30px;
-    font-size: 16px;
-    font-weight: 400;
-    color: #fff; }
-  .sidebar-filter .head {
-    line-height: 60px;
-    padding: 0 30px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #222222;
-    text-transform: uppercase;
-    margin-top: 5px; }
+
+    border-radius:15px;
+    margin-top: 50px;
+}
+    .sidebar-filter .top-filter-head {
+        background: linear-gradient(260deg, #22c1c3, #fdbb2d);
+        border-radius: 20px;
+        line-height: 60px;
+        
+        padding: 0 30px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+    }
+
+    .sidebar-filter .head {
+        
+        line-height: 60px;
+        padding: 0 30px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #222222;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
   .sidebar-filter .common-filter {
     border-bottom: 1px solid #eee;
     padding-bottom: 25px; }
