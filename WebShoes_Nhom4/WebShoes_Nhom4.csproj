@@ -16,8 +16,4 @@
     <None Include="wwwroot\scss\.DS_Store" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Category\" />
-  </ItemGroup>
-
 </Project>
