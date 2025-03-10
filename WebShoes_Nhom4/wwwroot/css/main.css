@@ -1329,6 +1329,11 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
 }
 
+.undefined-sticky-wrapper {
+    display: none !important;
+}
+
+
 @media (max-width: 991px) {
     .sticky-wrapper {
         top: 0;
@@ -1778,7 +1783,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .breadcrumb-banner h1 {
         font-weight: 600;
-        color: #fff;
+        color: #222222;
     }
 
 @media (max-width: 767px) {
@@ -1789,12 +1794,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .breadcrumb-banner p {
     margin-bottom: 0;
-    color: #fff;
+    color: #222222;
 }
 
 .breadcrumb-banner nav a {
     display: inline-block;
-    color: #fff;
+    color: #222222;
     font-weight: 400;
 }
 
@@ -4411,7 +4416,8 @@ label {
 
 .filter-bar {
     padding: 0px 20px 10px 20px;
-    background: linear-gradient(260deg, #22c1c3, #fdbb2d);
+    background: #f9ecc9;
+    /*    background: linear-gradient(260deg, #22c1c3, #fdbb2d);*/
     border-radius: 20px;
 }
 
@@ -4680,11 +4686,12 @@ label {
 .sidebar-categories .head {
     border-radius: 20px;
     line-height: 60px;
-    background: linear-gradient(260deg, #22c1c3, #fdbb2d);
+    background: #f9ecc9;
+    /*    background: linear-gradient(260deg, #22c1c3, #fdbb2d);*/
     padding: 0 30px;
     font-size: 16px;
     font-weight: 400;
-    color: #fff;
+    color: #222222;
 }
 
 .sidebar-categories .main-categories {
@@ -4725,13 +4732,14 @@ label {
 }
 
     .sidebar-filter .top-filter-head {
-        background: linear-gradient(260deg, #22c1c3, #fdbb2d);
+        background: #f9ecc9;
+        /*        background: linear-gradient(260deg, #22c1c3, #fdbb2d);*/
         border-radius: 20px;
         line-height: 60px;
         padding: 0 30px;
         font-size: 16px;
         font-weight: 400;
-        color: #fff;
+        color: #222222;
     }
 
     .sidebar-filter .head {
