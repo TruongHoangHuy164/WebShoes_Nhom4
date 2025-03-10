@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebShoeTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250310040002_InitialCreate")]
+    [Migration("20250310041252_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
