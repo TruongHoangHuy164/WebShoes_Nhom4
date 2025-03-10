@@ -1634,6 +1634,7 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 .banner-area {
+
     background: url(../img/banner/banner-bg.jpg) center no-repeat;
     background-size: cover;
     position: relative;
