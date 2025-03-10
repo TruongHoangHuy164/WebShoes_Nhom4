@@ -1,0 +1,563 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="CodePixar">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Shoe Shop</title>
+
+	<!--
+			CSS
+			============================================= -->
+	<link rel="stylesheet" href="css/linearicons.css">
+	<link rel="stylesheet" href="css/owl.carousel.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/themify-icons.css">
+	<link rel="stylesheet" href="css/nice-select.css">
+	<link rel="stylesheet" href="css/nouislider.min.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body id="category">
+
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light main_box">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<a class="navbar-brand logo_h" asp-controller="Home" asp-action="Index">
+						<img src="img/logo.png" alt="">
+					</a>
+
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+							aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+						<ul class="nav navbar-nav menu_nav ml-auto">
+							<li class="nav-item"><a asp-action="Index" asp-controller="Home" class="nav-link">Home</a></li>
+							<li class="nav-item"><a asp-action="Index" asp-controller="Shop" class="nav-link">Shop</a></li>
+							<li class="nav-item"><a asp-action="Index" asp-controller="AboutUs" class="nav-link">About Us</a></li>
+							<li class="nav-item"><a asp-action="Index" asp-controller="Login" class="nav-link">Login</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item">
+								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+		</header>
+	<!-- End Header Area -->
+	<!-- Start Banner Area -->
+	@Html.Partial("_Banner2Partial")
+	<!-- End Banner Area -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-3 col-lg-4 col-md-5">
+				<div class="sidebar-categories">
+					<div class="head">Categories</div>
+					<ul class="main-nav">
+						<li class="main-nav-list">
+							<a data-toggle="collapse" href="#genderCategory" aria-expanded="false" aria-controls="genderCategory">
+								<span class="lnr lnr-arrow-right"></span>Giới Tính & Độ Tuổi
+							</a>
+							@* <ul class="collapse" id="genderCategory"> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Nam <span class="number">(20)</span></a></li> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Nữ <span class="number">(18)</span></a></li> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Trẻ Em <span class="number">(10)</span></a></li> *@
+							@* </ul> *@
+						</li>
+
+						@* <li class="main-nav-list"> *@
+						@* 	<a data-toggle="collapse" href="#usageCategory" aria-expanded="false" aria-controls="usageCategory"> *@
+						@* 		<span class="lnr lnr-arrow-right"></span>Theo Mục Đích Sử Dụng *@
+						@* 	</a> *@
+						@* 	<ul class="collapse" id="usageCategory"> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Chạy Bộ <span class="number">(15)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Bóng Đá <span class="number">(12)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Tennis <span class="number">(08)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Cầu Lông <span class="number">(05)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Leo Núi <span class="number">(07)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Bóng Rổ <span class="number">(06)</span></a></li> *@
+						@* 	</ul> *@
+						@* </li> *@
+
+						@* <li class="main-nav-list"> *@
+						@* 	<a data-toggle="collapse" href="#styleCategory" aria-expanded="false" aria-controls="styleCategory"> *@
+						@* 		<span class="lnr lnr-arrow-right"></span>Theo Phong Cách *@
+						@* 	</a> *@
+						@* 	<ul class="collapse" id="styleCategory"> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Sneaker <span class="number">(22)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Cao Cổ <span class="number">(14)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Thấp Cổ <span class="number">(17)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Lười (Slip-on) <span class="number">(11)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Canvas <span class="number">(09)</span></a></li> *@
+						@* 		<li class="main-nav-list child"><a href="#">Giày Thời Trang (Casual) <span class="number">(16)</span></a></li> *@
+						@* 	</ul> *@
+						@* </li> *@
+
+						<li class="main-nav-list">
+							<a data-toggle="collapse" href="#brandCategory" aria-expanded="false" aria-controls="brandCategory">
+								<span class="lnr lnr-arrow-right"></span>Theo Thương Hiệu
+							</a>
+							@* <ul class="collapse" id="brandCategory"> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Nike <span class="number">(25)</span></a></li> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Adidas <span class="number">(20)</span></a></li> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Puma <span class="number">(10)</span></a></li> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Converse <span class="number">(15)</span></a></li> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày Vans <span class="number">(12)</span></a></li> *@
+							@* 	<li class="main-nav-list child"><a href="#">Giày New Balance <span class="number">(08)</span></a></li> *@
+							@* </ul> *@
+						</li>
+					</ul>
+				</div>
+
+
+				<div class="sidebar-filter mt-50">
+					<div class="top-filter-head">Product Filters</div>
+					<div class="common-filter">
+						@* <div class="
+
+
+
+
+
+						">Brands</div> *@
+						@* <form action="#"> *@
+						@* 	<ul> *@
+						@* 		<li class="filter-list"><input class="pixel-radio" type="radio" id="nike" name="brand"><label for="nike">Nike<span>(25)</span></label></li> *@
+						@* 		<li class="filter-list"><input class="pixel-radio" type="radio" id="adidas" name="brand"><label for="adidas">Adidas<span>(20)</span></label></li> *@
+						@* 		<li class="filter-list"><input class="pixel-radio" type="radio" id="puma" name="brand"><label for="puma">Puma<span>(15)</span></label></li> *@
+						@* 		<li class="filter-list"><input class="pixel-radio" type="radio" id="converse" name="brand"><label for="converse">Converse<span>(18)</span></label></li> *@
+						@* 		<li class="filter-list"><input class="pixel-radio" type="radio" id="vans" name="brand"><label for="vans">Vans<span>(12)</span></label></li> *@
+						@* 	</ul> *@
+						@* </form> *@
+					</div>
+					<div class="common-filter">
+						<div class="head">Color</div>
+						<form action="#">
+							<ul>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
+								<li class="filter-list">
+									<input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">
+										Black
+										Leather<span>(29)</span>
+									</label>
+								</li>
+								<li class="filter-list">
+									<input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">
+										Black
+										with red<span>(19)</span>
+									</label>
+								</li>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
+							</ul>
+						</form>
+					</div>
+					<div class="common-filter">
+						<div class="head">Price</div>
+						<div class="price-range-area">
+							<div id="price-range"></div>
+							<div class="value-wrapper d-flex">
+								<div class="price">Price:</div>
+								
+								<div id="lower-value"></div>
+								<span>vnđ</span>
+								<div class="to">to</div>
+								
+								<div id="upper-value"></div>
+								<span>vnđ</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<div class="col-xl-9 col-lg-8 col-md-7">
+				<!-- Start Filter Bar -->
+				<div class="filter-bar d-flex flex-wrap align-items-center">
+					<div class="sorting">
+						<select>
+							<option value="1">Default sorting</option>
+							<option value="1">Default sorting</option>
+							<option value="1">Default sorting</option>
+						</select>
+					</div>
+					<div class="sorting mr-auto">
+						<select>
+							<option value="1">Show 12</option>
+							<option value="1">Show 12</option>
+							<option value="1">Show 12</option>
+						</select>
+					</div>
+					<div class="pagination">
+						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+						<a href="#" class="active">1</a>
+						<a href="#">2</a>
+						<a href="#">3</a>
+						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+						<a href="#">6</a>
+						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+					</div>
+				</div>
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+				<section class="lattest-product-area pb-40 category-list">
+					<div class="row">
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<img class="img-fluid" src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/2fb7662d-3d29-45ba-99a0-ac7d5758ed95/NIKE+AIR+FORCE+1+GS.png" alt="">
+								<div class="product-details">
+									<h6>
+										Nike Air Force 1 '07 LX
+									</h6>
+									<div class="price">
+										<h6>$3,829,000₫</h6>
+										<h6 class="l-through"></h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+									
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<img class="img-fluid" src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png" alt="">
+								<div class="product-details">
+									<h6>
+										Nike Air Force 1 '08
+									</h6>
+									<div class="price">
+										<h6>
+											2,929,000₫
+										</h6>
+										<h6 class="l-through"></h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+										
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<img class="img-fluid" src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/cc5b4f2a-3a32-4757-bd94-e23e7a9612c3/WMNS+AIR+FORCE+1+%2707+ESS.png" alt="">
+								<div class="product-details">
+									<h6>
+										Nike Air Force 1 '07 Essential
+									</h6>
+									<div class="price">
+										<h6>3,239,000₫</h6>
+										<h6 class="l-through"></h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+									
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<img class="img-fluid" src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/ca5c3ebb-686c-4eea-951e-819142c5af23/NIKE+AIR+FORCE+1+LV8+GS.png" alt="">
+								<div class="product-details">
+									<h6>
+										Nike Air Force 1 '09
+									</h6>
+									<div class="price">
+										<h6>3,239,000₫</h6>
+										<h6 class="l-through"></h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+									
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<img class="img-fluid" src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/04421d64-7214-4718-ba73-93e6d1447bac/AIR+FORCE+1+MID+%2707.png" alt="">
+								<div class="product-details">
+									<h6>
+										Nike Air Force 1 Mid '07
+									</h6>
+									<div class="price">
+										<h6>3,239,000₫</h6>
+										<h6 class="l-through"></h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+									
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<img class="img-fluid" src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/7ccbde3c-6b29-4027-ad8a-bdbd84426c1d/W+AIR+FORCE+1+%2707+NEXT+NATURE.png" alt="">
+								<div class="product-details">
+									<h6>
+										Nike Air Force 1 '07 Next Nature
+									</h6>
+									<div class="price">
+										<h6>3,239,000₫</h6>
+										<h6 class="l-through"></h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+										
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- End Best Seller -->
+				<!-- Start Filter Bar -->
+				<div class="filter-bar d-flex flex-wrap align-items-center">
+					<div class="sorting mr-auto">
+						<select>
+							<option value="1">Show 12</option>
+							<option value="1">Show 12</option>
+							<option value="1">Show 12</option>
+						</select>
+					</div>
+					<div class="pagination">
+						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+						<a href="#" class="active">1</a>
+						<a href="#">2</a>
+						<a href="#">3</a>
+						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+						<a href="#">6</a>
+						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+					</div>
+				</div>
+				<!-- End Filter Bar -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Start related-product Area -->
+	
+	<!-- End related-product Area -->
+	<!-- start footer Area -->
+	<footer class="footer">
+		<div class="container">
+			<p>Hoi - Huy - Hoang - Huong - Man</p>
+			<div class="social-icons">
+				<a href="https://www.facebook.com/yourprofile" target="_blank" class="fa fa-facebook"></a>
+				<a href="https://www.instagram.com/yourprofile" target="_blank" class="fa fa-instagram"></a>
+				<a href="mailto:youremail@example.com" class="fa fa-envelope"></a>
+			</div>
+			<p>&copy; <script>document.write(new Date().getFullYear());</script></p>
+		</div>
+	</footer>
+
+	<!-- End footer Area -->
+	<!-- Modal Quick Product View -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="container relative">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="product-quick-view">
+					<div class="row align-items-center">
+						<div class="col-lg-6">
+							<div class="quick-view-carousel">
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="quick-view-content">
+								<div class="top">
+									<h3 class="head">Mill Oil 1000W Heater, White</h3>
+									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span class="ml-10">$149.99</span></div>
+									<div class="category">Category: <span>Household</span></div>
+									<div class="available">Availibility: <span>In Stock</span></div>
+								</div>
+								<div class="middle">
+									<p class="content">
+										Mill Oil is an innovative oil filled radiator with the most modern technology. If you are
+										looking for something that can make your interior look awesome, and at the same time give you the pleasant
+										warm feeling during the winter.
+									</p>
+									<a href="#" class="view-full">View full Details <span class="lnr lnr-arrow-right"></span></a>
+								</div>
+								<div class="bottom">
+									<div class="color-picker d-flex align-items-center">
+										Color:
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+									</div>
+									<div class="quantity-container d-flex align-items-center mt-15">
+										Quantity:
+										<input type="text" class="quantity-amount ml-15" value="1" />
+										<div class="arrow-btn d-inline-flex flex-column">
+											<button class="increase arrow" type="button" title="Increase Quantity"><span class="lnr lnr-chevron-up"></span></button>
+											<button class="decrease arrow" type="button" title="Decrease Quantity"><span class="lnr lnr-chevron-down"></span></button>
+										</div>
+
+									</div>
+									<div class="d-flex mt-20">
+										<a href="#" class="view-btn color-2"><span>Add to Cart</span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-layers"></span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-heart"></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+			crossorigin="anonymous"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="js/gmaps.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>

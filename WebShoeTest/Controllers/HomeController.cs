@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebShoeTest.Models;
 
-namespace WebShoeTest.Controllers;
+namespace WebShoes_Nhom4.Controllers;
 
 public class HomeController : Controller
 {

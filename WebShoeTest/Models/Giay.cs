@@ -16,19 +16,12 @@ namespace WebShoeTest.Models
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal Gia { get; set; }
-
         [Required]
         public int KichThuoc { get; set; }
 
         [Required]
         public int SoLuong { get; set; }
-
-        [Range(0, 5)]
-        public float DanhGia { get; set; } = 0;
-
-        public int MaThuongHieu { get; set; }
-        public ThuongHieu ThuongHieu { get; set; }
-
+        [Required]
         public int MaDanhMuc { get; set; }
         public DanhMuc DanhMuc { get; set; }
 

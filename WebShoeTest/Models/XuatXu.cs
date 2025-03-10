@@ -19,7 +19,7 @@ namespace WebShoeTest.Models
         [EmailAddress, StringLength(50)]
         public string Email { get; set; }
 
-        public ICollection<ThuongHieu> ThuongHieus { get; set; }
+
         public ICollection<NhaCungCap> NhaCungCaps { get; set; }
     }
 

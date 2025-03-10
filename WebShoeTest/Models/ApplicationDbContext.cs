@@ -21,7 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<NhaCungCap> NhaCungCaps { get; set; }
     public DbSet<NhanVien> NhanViens { get; set; }
     public DbSet<ThanhToan> ThanhToans { get; set; }
-    public DbSet<ThuongHieu> ThuongHieus { get; set; }
+
     public DbSet<XuatXu> XuatXus { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -93,11 +93,7 @@ public class ApplicationDbContext : DbContext
             .WithOne(d => d.ThanhToan)
             .HasForeignKey<ThanhToan>(t => t.MaDonHang);
 
-        // Giày - Thương hiệu
-        modelBuilder.Entity<Giay>()
-            .HasOne(g => g.ThuongHieu)
-            .WithMany(t => t.Giays)
-            .HasForeignKey(g => g.MaThuongHieu);
+     
 
         // Giày - Danh mục
         modelBuilder.Entity<Giay>()
@@ -159,10 +155,6 @@ public class ApplicationDbContext : DbContext
             .WithMany(x => x.NhaCungCaps)
             .HasForeignKey(n => n.MaXuatXu);
 
-        // Thương hiệu - Xuất xứ
-        modelBuilder.Entity<ThuongHieu>()
-            .HasOne(t => t.XuatXu)
-            .WithMany(x => x.ThuongHieus)
-            .HasForeignKey(t => t.MaXuatXu);
+   
     }
 }
