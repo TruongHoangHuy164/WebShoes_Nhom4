@@ -1,0 +1,81 @@
+﻿@model ShoeShop.Models.Product
+
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+    var existingSizes = ViewData["ExistingSizes"] as List<int> ?? new List<int>();
+    var allSizes = ViewData["Sizes"] as List<ShoeShop.Models.Size> ?? new List<ShoeShop.Models.Size>();
+}
+
+<div class="container">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ProductID" />
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="ProductName" class="form-label">Tên sản phẩm</label>
+                <input asp-for="ProductName" class="form-control" required />
+
+                <label asp-for="CategoryID" class="form-label">Danh mục</label>
+                <select asp-for="CategoryID" class="form-select" asp-items="ViewBag.CategoryID">
+                    <option value="">-- Chọn danh mục --</option>
+                </select>
+
+                <label asp-for="Price" class="form-label">Giá</label>
+                <input asp-for="Price" class="form-control" type="number" min="0" required />
+
+                <label asp-for="Description" class="form-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+
+                <label class="form-label">Chọn kích thước</label>
+                <div class="d-flex flex-wrap">
+                    @foreach (var size in allSizes)
+                    {
+                        <div class="form-check me-3">
+                            <input type="checkbox" name="selectedSizes" value="@size.SizeID"
+                                   class="form-check-input" @(existingSizes.Contains(size.SizeID) ? "checked" : "") />
+                            <label class="form-check-label">@size.SizeName</label>
+
+                            <input type="number" name="stockQuantities" class="form-control" min="0" placeholder="Nhập số lượng" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Hình ảnh hiện tại</label>
+                <div class="mb-2">
+                    @if (Model.ProductImages != null && Model.ProductImages.Any())
+                    {
+                        foreach (var image in Model.ProductImages)
+                        {
+                            <div class="d-flex align-items-center">
+                                <img src="@image.ImageURL" class="img-thumbnail me-2" width="80" />
+                                <input type="checkbox" name="deletedImageIds" value="@image.ImageID" />
+                                <label>Xóa ảnh</label>
+
+                                <input type="radio" name="primaryImageId" value="@image.ImageID" @(image.IsPrimary ? "checked" : "") />
+                                <label>Đặt làm ảnh chính</label>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">Chưa có hình ảnh</p>
+                    }
+                </div>
+
+                <label class="form-label">Cập nhật hình ảnh mới</label>
+                <input type="file" name="imageFiles" class="form-control" multiple />
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>
