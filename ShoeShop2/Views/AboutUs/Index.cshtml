@@ -1,0 +1,211 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu Thành Viên Nhóm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/linearicons.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/nouislider.min.css">
+    <link rel="stylesheet" href="css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+            body{
+            background-image: url('/img/banner/banner-bg.jpg'); /* Đảm bảo đường dẫn đúng */
+            background-size: cover; /* Phủ toàn bộ màn hình */
+            background-repeat: no-repeat; /* Không lặp ảnh */
+        }
+
+        
+        .team-area {
+            padding: 50px 0;
+
+        }
+
+        .single-team-member {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+            .single-team-member img {
+                width: 100%;
+                max-width: 200px;
+                border-radius: 50%;
+                margin-bottom: 15px;
+            }
+
+            .single-team-member h4 {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .single-team-member p {
+                color: #777;
+            }
+
+        .social-icons a {
+            margin: 0 10px;
+            color: #555;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+            .social-icons a:hover {
+                color: #007bff;
+            }
+    </style>
+</head>
+<body>
+    <header class="header_area sticky-header">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light main_box">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" asp-controller="Home" asp-action="Index">
+                        <img src="img/logo.png" alt="">
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item"><a asp-action="Index" asp-controller="Home" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a asp-action="Index" asp-controller="Shop" class="nav-link">Shop</a></li>
+                            <li class="nav-item"><a asp-action="Index" asp-controller="AboutUs" class="nav-link">About Us</a></li>
+                            <li class="nav-item"><a asp-action="Index" asp-controller="Login" class="nav-link">Login</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+                            <li class="nav-item">
+                                <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="search_input" id="search_input_box">
+            <div class="container">
+                <form class="d-flex justify-content-between">
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                    <button type="submit" class="btn"></button>
+                    <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+                </form>
+            </div>
+        </div>
+    </header>
+    @* --- *@
+     <section class="team-area">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Giới Thiệu Thành Viên Nhóm</h2>
+                <p>Danh sách các thành viên của nhóm và vai trò của họ trong dự án.</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-team-member">
+                        <img src="img/team/truonghuy.jpg" alt="Trương Hoàng Huy">
+                        <h4>Trương Hoàng Huy</h4>
+                        <h6>MSSV: 2280601274</h6>
+                        <p>Leader - FullStask</p>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/truonghuy164" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/widen.4rt" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com/in/trương-hoàng-huy" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-team-member">
+                        <img src="img/team/vayhoi.jpg" alt="Nông Vay Hội">
+                        <h4>Nông Vay Hội</h4>
+                        <h6>MSSV: 2280601082</h6>
+                        <p>FullStask</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-team-member">
+                        <img src="https://i.imgur.com/A65zVye.jpeg" alt="Đặng Lê Hoàng">
+                        <h4>Đặng Lê Hoàng</h4>
+                        <h6>MSSV: 2280601022</h6>
+                        <p>FullStask</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single-team-member">
+                        <img src="img/team/ngochuong.jpg" alt="Võ Ngọc Hương">
+                        <h4>Võ Ngọc Hương</h4>
+                        <h6>MSSV: 2280601343</h6>
+                        <p>FontEnd</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single-team-member">
+                        <img src="img/team/minhman.jpg" alt="Trương Minh Mẫn">
+                        <h4>Trương Minh Mẫn</h4>
+                        <h6>MSSV: </h6>
+                        <p>FontEnd</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
+    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/nouislider.min.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <!--gmaps Js-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="js/gmaps.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
