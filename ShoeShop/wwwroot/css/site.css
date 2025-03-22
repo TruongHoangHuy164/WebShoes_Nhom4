@@ -1,5 +1,22 @@
-html {
+﻿html {
   font-size: 14px;
+}
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Chiếm phần còn lại của chiều cao */
+}
+
+footer {
+    padding: 5px;
+    margin-top: auto; /* Đẩy footer xuống cuối cùng */
 }
 
 @media (min-width: 768px) {
