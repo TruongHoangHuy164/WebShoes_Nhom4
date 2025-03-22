@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ShoeShop.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<h2 class="text-center my-4">Danh sách sản phẩm</h2>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <img src="@((product.ProductImages.FirstOrDefault()?.ImageURL ?? "/images/no-image.png"))" class="card-img-top" alt="@product.ProductName">
+                <div class="card-body">
+                    <h5 class="card-title">@product.ProductName</h5>
+                    <p class="card-text text-danger fw-bold">@product.Price.ToString("C")</p>
+                    <p class="text-muted">Danh mục: @product.Category?.CategoryName</p>
+                    <a asp-action="Details" asp-route-id="@product.ProductID" class="btn btn-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

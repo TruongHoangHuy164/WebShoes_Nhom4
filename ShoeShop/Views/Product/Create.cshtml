@@ -1,0 +1,91 @@
+﻿@model ShoeShop.Models.Product
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+}
+
+<h2>Thêm sản phẩm</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="ProductName" class="control-label"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryID" class="control-label"></label>
+        <select asp-for="CategoryID" asp-items='@(new SelectList(ViewBag.Categories, "CategoryID", "CategoryName"))' class="form-control">
+            <option value="">-- Chọn danh mục --</option>
+        </select>
+        <span asp-validation-for="CategoryID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Hình ảnh sản phẩm (tối đa 3 ảnh)</label>
+        <input type="file" name="images" class="form-control" multiple />
+    </div>
+
+    <div class="form-group">
+        <label>Chọn kích thước & số lượng</label>
+        <select id="sizeSelect" class="form-control" asp-items='@(new SelectList(ViewBag.Sizes, "SizeID", "SizeName"))'>
+            <option value="">-- Chọn kích thước --</option>
+        </select>
+        <input type="number" id="sizeQuantity" class="form-control mt-2" placeholder="Nhập số lượng" min="1" />
+        <button type="button" id="addSize" class="btn btn-primary mt-2">Thêm</button>
+    </div>
+
+    <ul id="sizeList" class="list-group mb-3"></ul>
+    <input type="hidden" name="ProductSizesJson" id="ProductSizesJson" />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let productSizes = [];
+
+        document.getElementById("addSize").addEventListener("click", function () {
+            let sizeId = document.getElementById("sizeSelect").value;
+            let sizeText = document.getElementById("sizeSelect").selectedOptions[0].text;
+            let quantity = document.getElementById("sizeQuantity").value;
+
+            if (sizeId && quantity > 0) {
+                let exists = productSizes.find(item => item.SizeID == sizeId);
+                if (!exists) {
+                    productSizes.push({ SizeID: sizeId, Quantity: quantity });
+                    updateSizeList();
+                } else {
+                    alert("Kích thước này đã được thêm. Hãy chỉnh sửa số lượng nếu cần.");
+                }
+            } else {
+                alert("Vui lòng chọn kích thước và nhập số lượng hợp lệ.");
+            }
+        });
+
+        function updateSizeList() {
+            let sizeList = document.getElementById("sizeList");
+            sizeList.innerHTML = "";
+            productSizes.forEach((item, index) => {
+                sizeList.innerHTML += `<li class='list-group-item'>
+                    ${document.querySelector(`#sizeSelect option[value='${item.SizeID}']`).text} - ${item.Quantity} đôi
+                    <button type='button' class='btn btn-danger btn-sm float-end' onclick='removeSize(${index})'>Xóa</button>
+                </li>`;
+            });
+            document.getElementById("ProductSizesJson").value = JSON.stringify(productSizes);
+        }
+
+        function removeSize(index) {
+            productSizes.splice(index, 1);
+            updateSizeList();
+        }
+    </script>
+}
