@@ -11,7 +11,8 @@ namespace ShoeShop.Models
 
         [StringLength(500)]
         public string Description { get; set; }
+        public List<Product>? Products { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        // public ICollection<Product> Products { get; set; }
     }
 }

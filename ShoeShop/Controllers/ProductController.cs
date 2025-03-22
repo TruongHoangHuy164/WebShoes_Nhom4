@@ -60,7 +60,8 @@ namespace ShoeShop.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
+            ViewBag.CategoryID = new SelectList(_context.Categories, "CategoryID", "CategoryName");
+            //ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
             ViewData["Sizes"] = _context.Sizes.ToList();
             return View();
         }
@@ -170,7 +171,11 @@ namespace ShoeShop.Controllers
                     }
                     await _context.SaveChangesAsync();
                 }
-
+                Console.WriteLine($"Tên sản phẩm: {product?.ProductName}");
+                Console.WriteLine($"Danh mục ID: {product?.CategoryID}");
+                Console.WriteLine($"Giá sản phẩm: {product?.Price}");
+                Console.WriteLine($"Số lượng sizes: {selectedSizes?.Count}");
+                Console.WriteLine($"Số lượng ảnh: {imageFiles?.Count}");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -243,19 +248,36 @@ namespace ShoeShop.Controllers
                     ModelState.AddModelError("Price", "Giá phải lớn hơn 0");
                 }
 
-                if (!ModelState.IsValid)
+                if (!ModelState.IsValid || selectedSizes == null || selectedSizes.Count == 0 || imageFiles == null || imageFiles.Count == 0)
                 {
-                    var existingProduct = await _context.Products
-                        .Include(p => p.ProductSizes)
-                        .ThenInclude(ps => ps.Size)
-                        .Include(p => p.ProductImages)
-                        .FirstOrDefaultAsync(p => p.ProductID == id);
+                    if (selectedSizes == null || selectedSizes.Count == 0)
+                    {
+                        ModelState.AddModelError("ProductSizes", "Vui lòng chọn ít nhất một kích cỡ.");
+                    }
+                    if (imageFiles == null || imageFiles.Count == 0)
+                    {
+                        ModelState.AddModelError("ProductImages", "Vui lòng tải lên ít nhất một hình ảnh.");
+                    }
 
                     ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
                     ViewData["Sizes"] = _context.Sizes.ToList();
-                    ViewData["ExistingSizes"] = existingProduct.ProductSizes.Select(ps => ps.SizeID).ToList();
-                    return View(existingProduct);
+                    return View(product);
                 }
+
+
+                //if (!ModelState.IsValid)
+                //{
+                //    var existingProduct = await _context.Products
+                //        .Include(p => p.ProductSizes)
+                //        .ThenInclude(ps => ps.Size)
+                //        .Include(p => p.ProductImages)
+                //        .FirstOrDefaultAsync(p => p.ProductID == id);
+
+                //    ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
+                //    ViewData["Sizes"] = _context.Sizes.ToList();
+                //    ViewData["ExistingSizes"] = existingProduct.ProductSizes.Select(ps => ps.SizeID).ToList();
+                //    return View(existingProduct);
+                //}
 
                 // Get existing product to update
                 var productToUpdate = await _context.Products

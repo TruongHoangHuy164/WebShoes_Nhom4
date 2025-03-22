@@ -7,9 +7,8 @@ namespace ShoeShop.Models
     {
         public int ProductID { get; set; }
 
-        [Required]
         public int CategoryID { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
         [Required, StringLength(255)]
         public string ProductName { get; set; }
@@ -21,7 +20,10 @@ namespace ShoeShop.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public ICollection<ProductImage> ProductImages { get; set; }
-        public ICollection<ProductSize> ProductSizes { get; set; }
+        public ICollection<ProductSize> ProductSizes { get; set; } = new List<ProductSize>();
+        public ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+
+        //public ICollection<ProductImage> ProductImages { get; set; }
+        //public ICollection<ProductSize> ProductSizes { get; set; }
     }
 }

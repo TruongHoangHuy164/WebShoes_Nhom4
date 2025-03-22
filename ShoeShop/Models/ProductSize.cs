@@ -16,5 +16,6 @@ namespace ShoeShop.Models
 
         [Required]
         public int Stock { get; set; }
+
     }
 }
