@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/detailproduct.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Phần hình ảnh -->
+            <div class="col-md-6">
+                <div class="product-gallery">
+                    <img id="main-image" src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/685dd173-195c-4b28-aaf9-c91fd61dfd4c/WMNS+AIR+FORCE+1+%2707+ESS.png" class="img-fluid">
+                    <div class="thumbnail-row">
+                        <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ef92df87-6098-4fa5-bc88-7107492febcf/AIR+FORCE+1+%2707.png" class="thumbnail" onclick="changeImage(this)">
+                        <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/a0a300da-2e16-4483-ba64-9815cf0598ac/AIR+FORCE+1+%2707.png" class="thumbnail" onclick="changeImage(this)">
+                        <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/82aa97ed-98bf-4b6f-9d0b-31a9f907077b/AIR+FORCE+1+%2707.png" class="thumbnail" onclick="changeImage(this)">
+                        <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1c1e5f55-99c2-4522-b398-2352e01ba566/AIR+FORCE+1+%2707.png" class="thumbnail" onclick="changeImage(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần thông tin sản phẩm -->
+            <div class="col-md-6">
+                <h2 class="product-title"></h2>
+                <p class="product-category">Women's Shoes</p>
+                <h3 class="product-price">3,829,000₫</h3>
+
+                <div class="size-selection">
+                    <label>Chọn Size:</label>
+                    <div class="size-buttons">
+                        <button class="size-btn">35.5</button>
+                        <button class="size-btn">36</button>
+                        <button class="size-btn">36.5</button>
+                        <button class="size-btn">37.5</button>
+                        <button class="size-btn">38</button>
+                        <button class="size-btn">39</button>
+                        <button class="size-btn">40</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-dark btn-add-cart">Add to Bag</button>
+                <button class="btn btn-outline-dark">❤️ Favourite</button>
+
+                <ul class="product-details">
+                    <li><strong>Colour:</strong> Sail/Sail/Pink Foam</li>
+                    <li><strong>Origin:</strong> China</li>
+                </ul>
+
+             
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeImage(img) {
+            document.getElementById("main-image").src = img.src;
+        }
+    </script>
+
+</body>
+</html>
+
