@@ -1,8 +1,113 @@
-﻿@{
+﻿@model List<ShoeShop.Models.Product>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <!-- Banner 1 -->
+    <div class="banner-container mb-4">
+        <img src="/images/banner/banner1.jpg" class="img-fluid w-100" alt="Banner 1">
+    </div>
+
+    <h1 class="mb-4">Featured Products</h1>
+
+    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach (var chunk in Model.Select((value, index) => new { value, index })
+            .GroupBy(x => x.index / 4) // Chia nhóm 4 sản phẩm
+            .Select(g => g.Select(x => x.value).ToList()))
+            {
+                <div class="carousel-item @(chunk.FirstOrDefault() == Model.First() ? "active" : "")">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                        @foreach (var product in chunk)
+                        {
+                            var primaryImage = product.ProductImages.FirstOrDefault(pi => pi.IsPrimary)
+                            ?? product.ProductImages.FirstOrDefault();
+                            var imageUrl = primaryImage != null ? primaryImage.ImageURL : "/images/no-image.jpg";
+
+                            <div class="col">
+                                <div class="card h-100 shadow-sm product-card">
+                                    <a href="@Url.Action("Details", "Product", new { id = product.ProductID })" class="text-decoration-none">
+                                        <img src="@imageUrl" class="card-img-top product-image" alt="@product.ProductName">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-dark">@product.ProductName</h5>
+                                            <p class="card-text text-primary fw-bold">@product.Price.ToString("C0")</p>
+
+                                            @if (product.Category != null)
+                                            {
+                                                <span class="badge bg-secondary">@product.Category.CategoryName</span>
+                                            }
+                                        </div>
+                                    </a>
+                                    <div class="card-footer bg-white border-top-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <a href="@Url.Action("Details", "Product", new { id = product.ProductID })" class="btn btn-sm btn-outline-primary">View Details</a>
+                                            <button class="btn btn-sm btn-primary add-to-cart" data-product-id="@product.ProductID">
+                                                <i class="bi bi-cart-plus"></i> Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Banner 2 -->
+    <div class="banner-container mt-4 mb-4">
+        <img src="/images/banner/banner2.jpg" class="img-fluid w-100" alt="Banner 2">
+    </div>
 </div>
+
+<style>
+    .product-card {
+        transition: transform 0.3s;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .product-image {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .banner-container {
+        margin-bottom: 20px;
+        /* Điều chỉnh khoảng cách dưới banner */
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productId = this.getAttribute('data-product-id');
+
+                // Here you would typically add AJAX call to add item to cart
+                console.log('Adding product ID ' + productId + ' to cart');
+
+                // For demonstration purposes only
+                alert('Product added to cart!');
+            });
+        });
+    });
+</script>
