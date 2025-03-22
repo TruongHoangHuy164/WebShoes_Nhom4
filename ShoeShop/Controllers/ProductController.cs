@@ -69,85 +69,130 @@ namespace ShoeShop.Controllers
         // POST: Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, List<int> selectedSizes, List<int> stockQuantities, List<IFormFile> imageFiles, int mainImageIndex)
+        public async Task<IActionResult> Create(Product product, List<int> selectedSizes, List<int> stockQuantities, List<IFormFile> imageFiles)
         {
             try
             {
-                if (!ModelState.IsValid)
+                // Kiểm tra dữ liệu đầu vào
+                if (product == null)
                 {
+                    ModelState.AddModelError("", "Dữ liệu sản phẩm không hợp lệ");
                     ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
                     ViewData["Sizes"] = _context.Sizes.ToList();
                     return View(product);
                 }
 
+                // Kiểm tra các trường bắt buộc
+                if (string.IsNullOrEmpty(product.ProductName))
+                {
+                    ModelState.AddModelError("ProductName", "Tên sản phẩm là bắt buộc");
+                }
+
+                if (product.CategoryID <= 0)
+                {
+                    ModelState.AddModelError("CategoryID", "Vui lòng chọn danh mục");
+                }
+
+                if (product.Price <= 0)
+                {
+                    ModelState.AddModelError("Price", "Giá phải lớn hơn 0");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
+                    ViewData["Sizes"] = _context.Sizes.ToList();
+                    return View(product);
+                }
+
+                // Set creation date
                 product.CreatedAt = DateTime.Now;
+
+                // Add product to database
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
 
-                // Xử lý kích cỡ và số lượng
-                if (selectedSizes != null && stockQuantities != null && selectedSizes.Count == stockQuantities.Count)
+                // Ghi log để debug
+                Console.WriteLine($"Đã lưu sản phẩm với ID: {product.ProductID}");
+
+                // Handle product sizes
+                if (selectedSizes != null && stockQuantities != null)
                 {
-                    for (int i = 0; i < selectedSizes.Count; i++)
+                    for (int i = 0; i < Math.Min(selectedSizes.Count, stockQuantities.Count); i++)
                     {
                         if (stockQuantities[i] > 0)
                         {
-                            _context.ProductSizes.Add(new ProductSize
+                            ProductSize productSize = new ProductSize
                             {
                                 ProductID = product.ProductID,
                                 SizeID = selectedSizes[i],
                                 Stock = stockQuantities[i]
-                            });
+                            };
+                            _context.ProductSizes.Add(productSize);
                         }
                     }
                     await _context.SaveChangesAsync();
                 }
 
-                // Xử lý hình ảnh sản phẩm
-                if (imageFiles != null && imageFiles.Any())
+                // Handle product images
+                if (imageFiles != null && imageFiles.Count > 0)
                 {
-                    string uploadPath = Path.Combine(_hostEnvironment.WebRootPath, "images/products");
-
-                    if (!Directory.Exists(uploadPath))
+                    foreach (var imageFile in imageFiles)
                     {
-                        Directory.CreateDirectory(uploadPath);
-                    }
-
-                    for (int i = 0; i < imageFiles.Count; i++)
-                    {
-                        var imageFile = imageFiles[i];
-
-                        if (imageFile.Length > 0)
+                        if (imageFile != null && imageFile.Length > 0)
                         {
+                            // Create unique filename
                             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                            string filePath = Path.Combine(uploadPath, fileName);
+                            string uploadPath = Path.Combine(_hostEnvironment.WebRootPath, "images", "products");
 
-                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            // Create directory if it doesn't exist
+                            if (!Directory.Exists(uploadPath))
                             {
-                                await imageFile.CopyToAsync(stream);
+                                Directory.CreateDirectory(uploadPath);
                             }
 
-                            _context.ProductImages.Add(new ProductImage
+                            string filePath = Path.Combine(uploadPath, fileName);
+
+                            // Save file
+                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                            {
+                                await imageFile.CopyToAsync(fileStream);
+                            }
+
+                            // Save image info to database
+                            ProductImage productImage = new ProductImage
                             {
                                 ProductID = product.ProductID,
                                 ImageURL = "/images/products/" + fileName,
-                                IsPrimary = (i == mainImageIndex) // Đánh dấu ảnh chính theo index được chọn
-                            });
+                                IsPrimary = !_context.ProductImages.Any(pi => pi.ProductID == product.ProductID) // First image is primary
+                            };
+                            _context.ProductImages.Add(productImage);
                         }
                     }
                     await _context.SaveChangesAsync();
                 }
-
+                Console.WriteLine($"Tên sản phẩm: {product?.ProductName}");
+                Console.WriteLine($"Danh mục ID: {product?.CategoryID}");
+                Console.WriteLine($"Giá sản phẩm: {product?.Price}");
+                Console.WriteLine($"Số lượng sizes: {selectedSizes?.Count}");
+                Console.WriteLine($"Số lượng ảnh: {imageFiles?.Count}");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Có lỗi xảy ra: " + ex.Message);
-                ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
+                // Ghi log lỗi
+                Console.WriteLine($"Lỗi khi tạo sản phẩm: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                }
+
+                ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
+                ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
                 ViewData["Sizes"] = _context.Sizes.ToList();
                 return View(product);
             }
         }
-
 
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -174,8 +219,6 @@ namespace ShoeShop.Controllers
             return View(product);
         }
 
-
-
         // POST: Product/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -192,20 +235,51 @@ namespace ShoeShop.Controllers
                 // Kiểm tra các trường bắt buộc
                 if (string.IsNullOrEmpty(product.ProductName))
                 {
-                    ModelState.AddModelError("ProductName", "Tên sản phẩm là bắt buộc.");
+                    ModelState.AddModelError("ProductName", "Tên sản phẩm là bắt buộc");
                 }
 
                 if (product.CategoryID <= 0)
                 {
-                    ModelState.AddModelError("CategoryID", "Vui lòng chọn danh mục.");
+                    ModelState.AddModelError("CategoryID", "Vui lòng chọn danh mục");
                 }
 
                 if (product.Price <= 0)
                 {
-                    ModelState.AddModelError("Price", "Giá phải lớn hơn 0.");
+                    ModelState.AddModelError("Price", "Giá phải lớn hơn 0");
                 }
 
-                // Lấy thông tin sản phẩm cần cập nhật
+                if (!ModelState.IsValid || selectedSizes == null || selectedSizes.Count == 0 || imageFiles == null || imageFiles.Count == 0)
+                {
+                    if (selectedSizes == null || selectedSizes.Count == 0)
+                    {
+                        ModelState.AddModelError("ProductSizes", "Vui lòng chọn ít nhất một kích cỡ.");
+                    }
+                    if (imageFiles == null || imageFiles.Count == 0)
+                    {
+                        ModelState.AddModelError("ProductImages", "Vui lòng tải lên ít nhất một hình ảnh.");
+                    }
+
+                    ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
+                    ViewData["Sizes"] = _context.Sizes.ToList();
+                    return View(product);
+                }
+
+
+                //if (!ModelState.IsValid)
+                //{
+                //    var existingProduct = await _context.Products
+                //        .Include(p => p.ProductSizes)
+                //        .ThenInclude(ps => ps.Size)
+                //        .Include(p => p.ProductImages)
+                //        .FirstOrDefaultAsync(p => p.ProductID == id);
+
+                //    ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
+                //    ViewData["Sizes"] = _context.Sizes.ToList();
+                //    ViewData["ExistingSizes"] = existingProduct.ProductSizes.Select(ps => ps.SizeID).ToList();
+                //    return View(existingProduct);
+                //}
+
+                // Get existing product to update
                 var productToUpdate = await _context.Products
                     .Include(p => p.ProductSizes)
                     .Include(p => p.ProductImages)
@@ -216,76 +290,52 @@ namespace ShoeShop.Controllers
                     return NotFound();
                 }
 
-                // Xử lý xóa ảnh
-                if (deletedImageIds != null && deletedImageIds.Any())
-                {
-                    foreach (var imageId in deletedImageIds)
-                    {
-                        var image = await _context.ProductImages.FindAsync(imageId);
-                        if (image != null)
-                        {
-                            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, image.ImageURL.TrimStart('/'));
-                            if (System.IO.File.Exists(imagePath))
-                            {
-                                System.IO.File.Delete(imagePath);
-                            }
-
-                            _context.ProductImages.Remove(image);
-                        }
-                    }
-                    await _context.SaveChangesAsync();
-                }
-
-                // Kiểm tra xem còn ảnh nào không
-                var existingImages = await _context.ProductImages
-                    .Where(pi => pi.ProductID == product.ProductID)
-                    .ToListAsync();
-
-                if (!existingImages.Any() && (imageFiles == null || !imageFiles.Any()))
-                {
-                    ModelState.AddModelError("ProductImages", "Vui lòng tải lên ít nhất một hình ảnh.");
-                    ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
-                    ViewData["Sizes"] = _context.Sizes.ToList();
-                    return View(product);
-                }
-
-                // Cập nhật thông tin sản phẩm
+                // Update product properties
                 productToUpdate.CategoryID = product.CategoryID;
                 productToUpdate.ProductName = product.ProductName;
                 productToUpdate.Description = product.Description;
                 productToUpdate.Price = product.Price;
 
-                // Cập nhật kích thước sản phẩm
+                // Cập nhật sản phẩm
+                _context.Update(productToUpdate);
+                await _context.SaveChangesAsync();
+
+                // Update product sizes
                 if (selectedSizes != null && stockQuantities != null)
                 {
+                    // Remove existing product sizes
                     _context.ProductSizes.RemoveRange(productToUpdate.ProductSizes);
                     await _context.SaveChangesAsync();
 
+                    // Add updated product sizes
                     for (int i = 0; i < Math.Min(selectedSizes.Count, stockQuantities.Count); i++)
                     {
                         if (stockQuantities[i] > 0)
                         {
-                            _context.ProductSizes.Add(new ProductSize
+                            ProductSize productSize = new ProductSize
                             {
                                 ProductID = product.ProductID,
                                 SizeID = selectedSizes[i],
                                 Stock = stockQuantities[i]
-                            });
+                            };
+                            _context.ProductSizes.Add(productSize);
                         }
                     }
                     await _context.SaveChangesAsync();
                 }
 
-                // Xử lý thêm ảnh mới
-                if (imageFiles != null && imageFiles.Any())
+                // Handle product images
+                if (imageFiles != null)
                 {
                     foreach (var imageFile in imageFiles)
                     {
-                        if (imageFile.Length > 0)
+                        if (imageFile != null && imageFile.Length > 0)
                         {
+                            // Create unique filename
                             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
                             string uploadPath = Path.Combine(_hostEnvironment.WebRootPath, "images", "products");
 
+                            // Create directory if it doesn't exist
                             if (!Directory.Exists(uploadPath))
                             {
                                 Directory.CreateDirectory(uploadPath);
@@ -293,50 +343,97 @@ namespace ShoeShop.Controllers
 
                             string filePath = Path.Combine(uploadPath, fileName);
 
+                            // Save file
                             using (var fileStream = new FileStream(filePath, FileMode.Create))
                             {
                                 await imageFile.CopyToAsync(fileStream);
                             }
 
-                            _context.ProductImages.Add(new ProductImage
+                            // Save image info to database
+                            ProductImage productImage = new ProductImage
                             {
                                 ProductID = product.ProductID,
                                 ImageURL = "/images/products/" + fileName,
-                                IsPrimary = !existingImages.Any() // Nếu chưa có ảnh thì ảnh đầu tiên là chính
-                            });
+                                IsPrimary = !productToUpdate.ProductImages.Any() // First image is primary if no images exist
+                            };
+                            _context.ProductImages.Add(productImage);
                         }
                     }
                     await _context.SaveChangesAsync();
                 }
 
-                // Cập nhật ảnh chính
+                // Handle deleted images
+                if (deletedImageIds != null && deletedImageIds.Any())
+                {
+                    foreach (var imageId in deletedImageIds)
+                    {
+                        var image = await _context.ProductImages.FindAsync(imageId);
+                        if (image != null)
+                        {
+                            // Delete physical file
+                            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, image.ImageURL.TrimStart('/'));
+                            if (System.IO.File.Exists(imagePath))
+                            {
+                                System.IO.File.Delete(imagePath);
+                            }
+
+                            // Remove from database
+                            _context.ProductImages.Remove(image);
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+
+                // Handle primary image
                 if (primaryImageId.HasValue)
                 {
-                    foreach (var img in existingImages)
+                    var images = await _context.ProductImages
+                        .Where(pi => pi.ProductID == product.ProductID)
+                        .ToListAsync();
+
+                    foreach (var image in images)
                     {
-                        img.IsPrimary = (img.ImageID == primaryImageId.Value);
+                        image.IsPrimary = (image.ImageID == primaryImageId);
                     }
                     await _context.SaveChangesAsync();
                 }
 
                 return RedirectToAction(nameof(Index));
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(product.ProductID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
             catch (Exception ex)
             {
+                // Ghi log lỗi
                 Console.WriteLine($"Lỗi khi cập nhật sản phẩm: {ex.Message}");
                 if (ex.InnerException != null)
                 {
-                    Console.WriteLine($"Chi tiết lỗi: {ex.InnerException.Message}");
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
                 }
 
                 ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
 
+                var existingProduct = await _context.Products
+                    .Include(p => p.ProductSizes)
+                    .ThenInclude(ps => ps.Size)
+                    .Include(p => p.ProductImages)
+                    .FirstOrDefaultAsync(p => p.ProductID == id);
+
                 ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", product.CategoryID);
                 ViewData["Sizes"] = _context.Sizes.ToList();
-                return View(product);
+                ViewData["ExistingSizes"] = existingProduct.ProductSizes.Select(ps => ps.SizeID).ToList();
+                return View(existingProduct);
             }
         }
-
 
         // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -362,22 +459,26 @@ namespace ShoeShop.Controllers
         }
 
         // POST: Product/Delete/5
-        // POST: Product/DeleteConfirmed
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products
-                .Include(p => p.ProductImages)
-                .FirstOrDefaultAsync(p => p.ProductID == id);
-
-            if (product == null) return NotFound();
-
             try
             {
-                // Xóa ảnh sản phẩm khỏi thư mục
+                var product = await _context.Products
+                    .Include(p => p.ProductImages)
+                    .Include(p => p.ProductSizes)
+                    .FirstOrDefaultAsync(p => p.ProductID == id);
+
+                if (product == null)
+                {
+                    return NotFound();
+                }
+
+                // Delete product images
                 foreach (var image in product.ProductImages)
                 {
+                    // Delete physical file
                     var imagePath = Path.Combine(_hostEnvironment.WebRootPath, image.ImageURL.TrimStart('/'));
                     if (System.IO.File.Exists(imagePath))
                     {
@@ -385,21 +486,33 @@ namespace ShoeShop.Controllers
                     }
                 }
 
-                // Xóa sản phẩm khỏi database
+                // Delete product from database (cascade delete will handle related entities)
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index"); // Điều hướng về danh sách sản phẩm
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
+                // Ghi log lỗi
                 Console.WriteLine($"Lỗi khi xóa sản phẩm: {ex.Message}");
-                ModelState.AddModelError("", "Không thể xóa sản phẩm. Vui lòng thử lại.");
-                return View("Delete", product); // Nếu lỗi, quay lại trang xóa
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                }
+
+                ModelState.AddModelError("", $"Có lỗi xảy ra khi xóa sản phẩm: {ex.Message}");
+
+                var product = await _context.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.ProductImages)
+                    .Include(p => p.ProductSizes)
+                    .ThenInclude(ps => ps.Size)
+                    .FirstOrDefaultAsync(m => m.ProductID == id);
+
+                return View(product);
             }
         }
-
-
 
         // POST: Product/SetPrimaryImage/5
         [HttpPost]
