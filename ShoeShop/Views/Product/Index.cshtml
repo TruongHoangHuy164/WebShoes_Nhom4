@@ -1,24 +1,81 @@
-﻿@model IEnumerable<ShoeShop.Models.Product>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<ShoeShop.Models.Product>
 
 @{
     ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="text-center my-4">Danh sách sản phẩm</h2>
-
-<div class="row">
-    @foreach (var product in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <img src="@((product.ProductImages.FirstOrDefault()?.ImageURL ?? "/images/no-image.png"))" class="card-img-top" alt="@product.ProductName">
-                <div class="card-body">
-                    <h5 class="card-title">@product.ProductName</h5>
-                    <p class="card-text text-danger fw-bold">@product.Price.ToString("C")</p>
-                    <p class="text-muted">Danh mục: @product.Category?.CategoryName</p>
-                    <a asp-action="Details" asp-route-id="@product.ProductID" class="btn btn-primary">Xem chi tiết</a>
-                </div>
-            </div>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="mb-0">@ViewData["Title"]</h3>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fa fa-plus me-2"></i>Thêm mới
+            </a>
         </div>
-    }
+
+        <div class="table-responsive">
+            <table class="table table-hover text-start align-middle table-bordered table-striped mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th>ID</th>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Danh mục</th>
+                        <th>Giá</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProductID</td>
+                            <td>
+                                @if (item.ProductImages != null && item.ProductImages.Any())
+                                {
+                                    var primaryImage = item.ProductImages.FirstOrDefault(i => i.IsPrimary) ?? item.ProductImages.FirstOrDefault();
+                                    if (primaryImage != null)
+                                    {
+                                        <img src="@primaryImage.ImageURL" alt="@item.ProductName" style="width: 50px; height: 50px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/no-image.png" alt="No Image" style="width: 50px; height: 50px; object-fit: cover;" />
+                                    }
+                                }
+                                else
+                                {
+                                    <img src="/images/no-image.png" alt="No Image" style="width: 50px; height: 50px; object-fit: cover;" />
+                                }
+                            </td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Category?.CategoryName</td>
+                            <td>@item.Price.ToString("N0") đ</td>
+                            <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.ProductID" class="btn btn-sm btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.ProductID" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.ProductID" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

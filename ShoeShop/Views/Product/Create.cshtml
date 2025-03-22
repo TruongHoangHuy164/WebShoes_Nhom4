@@ -1,91 +1,209 @@
 ﻿@model ShoeShop.Models.Product
+
 @{
-    ViewData["Title"] = "Thêm sản phẩm";
+    ViewData["Title"] = "Thêm sản phẩm mới";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sizes = ViewData["Sizes"] as List<ShoeShop.Models.Size>;
 }
 
-<h2>Thêm sản phẩm</h2>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="mb-0">@ViewData["Title"]</h3>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fa fa-arrow-left me-2"></i>Quay lại
+            </a>
+        </div>
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="ProductName" class="control-label"></label>
-        <input asp-for="ProductName" class="form-control" />
-        <span asp-validation-for="ProductName" class="text-danger"></span>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Thông tin cơ bản</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label asp-for="ProductName" class="form-label">Tên sản phẩm</label>
+                                <input asp-for="ProductName" class="form-control" required />
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="CategoryID" class="form-label">Danh mục</label>
+                                <select asp-for="CategoryID" class="form-select" asp-items="ViewBag.CategoryID" required>
+                                    <option value="">-- Chọn danh mục --</option>
+                                </select>
+                                <span asp-validation-for="CategoryID" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Price" class="form-label">Giá</label>
+                                <input asp-for="Price" class="form-control" type="number" min="0" step="0.01" required />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label">Mô tả</label>
+                                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Kích cỡ và số lượng</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Kích cỡ</th>
+                                            <th>Số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (sizes != null)
+                                        {
+                                            for (int i = 0; i < sizes.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input type="checkbox" id="size_@sizes[i].SizeID" name="selectedSizes" value="@sizes[i].SizeID" class="form-check-input size-checkbox" />
+                                                            <label class="form-check-label" for="size_@sizes[i].SizeID">@sizes[i].SizeName</label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="stockQuantities" class="form-control stock-input" min="0" value="0" />
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Hình ảnh sản phẩm</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="imageFiles" class="form-label">Hình ảnh</label>
+                                <input type="file" id="imageFiles" name="imageFiles" class="form-control" multiple accept="image/*" />
+                                <div class="form-text">Có thể chọn nhiều hình ảnh. Hình ảnh đầu tiên sẽ là hình ảnh chính.</div>
+                            </div>
+                            <div id="imagePreview" class="row mt-3">
+                                <!-- Image previews will be shown here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <i class="fa fa-save me-2"></i>Lưu sản phẩm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        <label asp-for="CategoryID" class="control-label"></label>
-        <select asp-for="CategoryID" asp-items='@(new SelectList(ViewBag.Categories, "CategoryID", "CategoryName"))' class="form-control">
-            <option value="">-- Chọn danh mục --</option>
-        </select>
-        <span asp-validation-for="CategoryID" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
-        <input asp-for="Price" type="number" step="0.01" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label>Hình ảnh sản phẩm (tối đa 3 ảnh)</label>
-        <input type="file" name="images" class="form-control" multiple />
-    </div>
-
-    <div class="form-group">
-        <label>Chọn kích thước & số lượng</label>
-        <select id="sizeSelect" class="form-control" asp-items='@(new SelectList(ViewBag.Sizes, "SizeID", "SizeName"))'>
-            <option value="">-- Chọn kích thước --</option>
-        </select>
-        <input type="number" id="sizeQuantity" class="form-control mt-2" placeholder="Nhập số lượng" min="1" />
-        <button type="button" id="addSize" class="btn btn-primary mt-2">Thêm</button>
-    </div>
-
-    <ul id="sizeList" class="list-group mb-3"></ul>
-    <input type="hidden" name="ProductSizesJson" id="ProductSizesJson" />
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
-        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script>
-        let productSizes = [];
+        // Image preview functionality
+        document.querySelector('input[type="file"]').addEventListener('change', function (e) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.innerHTML = '';
 
-        document.getElementById("addSize").addEventListener("click", function () {
-            let sizeId = document.getElementById("sizeSelect").value;
-            let sizeText = document.getElementById("sizeSelect").selectedOptions[0].text;
-            let quantity = document.getElementById("sizeQuantity").value;
-
-            if (sizeId && quantity > 0) {
-                let exists = productSizes.find(item => item.SizeID == sizeId);
-                if (!exists) {
-                    productSizes.push({ SizeID: sizeId, Quantity: quantity });
-                    updateSizeList();
-                } else {
-                    alert("Kích thước này đã được thêm. Hãy chỉnh sửa số lượng nếu cần.");
+            if (this.files) {
+                for (let i = 0; i < this.files.length; i++) {
+                    const file = this.files[i];
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const div = document.createElement('div');
+                            div.className = 'col-6 mb-2';
+                            div.innerHTML = `
+                                <div class="card">
+                                    <img src="${e.target.result}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                                    ${i === 0 ? '<div class="card-footer p-1 text-center"><span class="badge bg-primary">Ảnh chính</span></div>' : ''}
+                                </div>
+                            `;
+                            imagePreview.appendChild(div);
+                        }
+                        reader.readAsDataURL(file);
+                    }
                 }
-            } else {
-                alert("Vui lòng chọn kích thước và nhập số lượng hợp lệ.");
             }
         });
 
-        function updateSizeList() {
-            let sizeList = document.getElementById("sizeList");
-            sizeList.innerHTML = "";
-            productSizes.forEach((item, index) => {
-                sizeList.innerHTML += `<li class='list-group-item'>
-                    ${document.querySelector(`#sizeSelect option[value='${item.SizeID}']`).text} - ${item.Quantity} đôi
-                    <button type='button' class='btn btn-danger btn-sm float-end' onclick='removeSize(${index})'>Xóa</button>
-                </li>`;
-            });
-            document.getElementById("ProductSizesJson").value = JSON.stringify(productSizes);
-        }
+        // Validate form before submission
+        document.getElementById('submitBtn').addEventListener('click', function(e) {
+            const productName = document.getElementById('ProductName').value;
+            const categoryID = document.getElementById('CategoryID').value;
+            const price = document.getElementById('Price').value;
 
-        function removeSize(index) {
-            productSizes.splice(index, 1);
-            updateSizeList();
-        }
+            let isValid = true;
+            let errorMessage = '';
+
+            if (!productName) {
+                errorMessage += 'Vui lòng nhập tên sản phẩm\n';
+                isValid = false;
+            }
+
+            if (!categoryID) {
+                errorMessage += 'Vui lòng chọn danh mục\n';
+                isValid = false;
+            }
+
+            if (!price || parseFloat(price) <= 0) {
+                errorMessage += 'Vui lòng nhập giá hợp lệ\n';
+                isValid = false;
+            }
+
+            // Kiểm tra nếu có kích cỡ được chọn thì phải có số lượng
+            const sizeCheckboxes = document.querySelectorAll('.size-checkbox:checked');
+            const stockInputs = document.querySelectorAll('.stock-input');
+
+            for (let i = 0; i < sizeCheckboxes.length; i++) {
+                const stockValue = parseInt(stockInputs[i].value);
+                if (sizeCheckboxes[i].checked && (!stockValue || stockValue <= 0)) {
+                    errorMessage += 'Vui lòng nhập số lượng cho các kích cỡ đã chọn\n';
+                    isValid = false;
+                    break;
+                }
+            }
+
+            if (!isValid) {
+                alert(errorMessage);
+                e.preventDefault();
+            }
+        });
     </script>
 }
