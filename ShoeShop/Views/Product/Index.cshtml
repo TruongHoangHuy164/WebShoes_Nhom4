@@ -1,9 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model IEnumerable<ShoeShop.Models.Product>
+﻿@model IEnumerable<ShoeShop.Models.Product>
 
 @{
     ViewData["Title"] = "Danh sách sản phẩm";
@@ -15,18 +10,19 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h3 class="mb-0">@ViewData["Title"]</h3>
             <a asp-action="Create" class="btn btn-primary">
-                <i class="fa fa-plus me-2"></i>Thêm mới
+                <i class="fa fa-plus me-2"></i> Thêm mới
             </a>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-hover text-start align-middle table-bordered table-striped mb-0">
+            <table class="table table-hover text-center align-middle table-bordered table-striped mb-0">
                 <thead>
                     <tr class="text-dark">
                         <th>ID</th>
                         <th>Hình ảnh</th>
                         <th>Tên sản phẩm</th>
                         <th>Danh mục</th>
+                        <th>Mô tả</th>
                         <th>Giá</th>
                         <th>Ngày tạo</th>
                         <th>Thao tác</th>
@@ -38,37 +34,38 @@
                         <tr>
                             <td>@item.ProductID</td>
                             <td>
-                                @if (item.ProductImages != null && item.ProductImages.Any())
-                                {
-                                    var primaryImage = item.ProductImages.FirstOrDefault(i => i.IsPrimary) ?? item.ProductImages.FirstOrDefault();
-                                    if (primaryImage != null)
+                                <div class="d-flex justify-content-center">
+                                    @if (item.ProductImages != null && item.ProductImages.Any())
                                     {
-                                        <img src="@primaryImage.ImageURL" alt="@item.ProductName" style="width: 50px; height: 50px; object-fit: cover;" />
+                                        var imagesToShow = item.ProductImages.Take(3);
+                                        foreach (var img in imagesToShow)
+                                        {
+                                            <img src="@img.ImageURL" alt="@item.ProductName"
+                                                 class="product-thumbnail mx-1" />
+                                        }
                                     }
                                     else
                                     {
-                                        <img src="/images/no-image.png" alt="No Image" style="width: 50px; height: 50px; object-fit: cover;" />
+                                        <img src="/images/no-image.png" alt="No Image" class="product-thumbnail" />
                                     }
-                                }
-                                else
-                                {
-                                    <img src="/images/no-image.png" alt="No Image" style="width: 50px; height: 50px; object-fit: cover;" />
-                                }
+                                </div>
                             </td>
                             <td>@item.ProductName</td>
                             <td>@item.Category?.CategoryName</td>
+                            <td>@item.Description</td>
                             <td>@item.Price.ToString("N0") đ</td>
                             <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a asp-action="Details" asp-route-id="@item.ProductID" class="btn btn-sm btn-info">
-                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-eye"></i> Xem
                                     </a>
                                     <a asp-action="Edit" asp-route-id="@item.ProductID" class="btn btn-sm btn-primary">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-edit"></i> Sửa
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.ProductID" class="btn btn-sm btn-danger">
-                                        <i class="fa fa-trash"></i>
+                                    <a asp-action="Delete" asp-route-id="@item.ProductID" class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?');">
+                                        <i class="fa fa-trash"></i> Xóa
                                     </a>
                                 </div>
                             </td>
@@ -79,3 +76,28 @@
         </div>
     </div>
 </div>
+
+<style>
+    .product-thumbnail {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .btn-group .btn {
+        margin: 0 2px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .btn i {
+        font-size: 14px;
+    }
+</style>
